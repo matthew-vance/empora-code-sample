@@ -65,6 +65,11 @@ export const smartyAddressApi = {
 
     const json = await result.json();
 
+    /*
+    Using Zod here gets us type safety coming from an external API.
+    This prevents any unexpected issues if we recieve something with don't expect by allowing us to handle it gracefully.
+    Combine implementations like this with input validation and you can achieve the closest thing to end-to-end type safety.
+    */
     const parseResult = smartyAddressResponseSchema
       .array()
       .nonempty()

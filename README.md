@@ -37,6 +37,8 @@ npm install
 
 ## Usage
 
+### Scripts
+
 ```sh
 # Build the application
 npm run build
@@ -44,17 +46,34 @@ npm run build
 # Build the application and watch for changes
 npm run dev
 
-# Run the application (build or dev script must be ran first)
-./bin/cli.js <path-to-csv-file>
-
-# See help message
-./bin/cli.js --help
-
 # Run tests with coverage (watch mode in non CI enironments)
 npm test
 
 #Lint and check types
 npm run vet
+```
+
+### CLI
+
+```sh
+# Build script must be ran first
+./bin/cli.js -h
+```
+
+```sh
+cli.js
+
+Usage:
+  $ cli.js <file>
+
+Commands:
+  <file>  Correct addresses in a CSV file. CSV file must contain columns 'City', 'Street', and 'Zip Code'.
+
+For more info, run any command with the `--help` flag:
+  $ cli.js --help
+
+Options:
+  -h, --help  Display this message
 ```
 
 ## Project Overview

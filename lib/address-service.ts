@@ -11,6 +11,10 @@ export interface Address {
   zip: string;
 }
 
+// This is a type alias for Address, but it is used to indicate that the address has been corrected.
+// And it may come in handy if these types diverge in the future.
+export type CorrectedAddress = Address;
+
 export interface AddressCorrectionResult {
   corrected: Address | null;
   original: Address;
@@ -21,12 +25,12 @@ export interface AddressDataReader {
 }
 
 export interface AddressApi {
-  getCorrectedAddress(address: Address): Promise<Address | null>;
+  getCorrectedAddress(address: Address): Promise<CorrectedAddress | null>;
 }
 
 export interface AddressDataWriter {
   write(
-    data: { original: Address; corrected: Address | null }[],
+    data: { original: Address; corrected: CorrectedAddress | null }[],
   ): void | Promise<void>;
 }
 

@@ -10,7 +10,9 @@ describe("cli", () => {
   });
 
   it("should run with argument", async () => {
-    process.argv = process.argv.slice(0, 2).concat(["test"]);
+    process.argv = process.argv
+      .slice(0, 2)
+      .concat(["./test/fixtures/test.csv"]);
     await run();
   });
 

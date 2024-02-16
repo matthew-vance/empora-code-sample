@@ -1,11 +1,11 @@
 import cac from "cac";
 
+import { correctAddressesInCsvAction } from "./actions";
+
 const cli = cac();
 cli.help();
 
-cli.command("<file>", "").action((file) => {
-  console.log("file", file);
-});
+cli.command("<file>", "").action(correctAddressesInCsvAction);
 
 export async function run() {
   try {
@@ -16,6 +16,6 @@ export async function run() {
       console.error(error.message);
     }
 
-    throw error;
+    process.exit(1);
   }
 }

@@ -48,6 +48,10 @@ export function newCsvAddressDataReader(file: string) {
   validateFile(file);
 
   return {
+    /*
+    This reads in the whole file and parses it into an array of addresses.
+    This works for this sample project but long term I would rather this streamed in the file and parsed it line by line to avoid memory issues with large files.
+    */
     async read() {
       const contents = await fs.readFile(file, { encoding: "utf8" });
       const lines = contents.split("\n");

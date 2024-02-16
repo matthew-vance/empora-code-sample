@@ -5,6 +5,11 @@ import { afterEach, describe, expect, it } from "vitest";
 import validAddressResponse from "../test/fixtures/validAddressResponse.json";
 import { run } from "./cli";
 
+/*
+These are intgration style tests. They test the entire application from the command line to the API.
+Real files are read from the file system and mock service worker is used to intercept the network requests and return a response.
+Using the real file system and network requests makes these tests highly representative of the real application.
+*/
 describe("cli", () => {
   const originalArgv = process.argv;
 

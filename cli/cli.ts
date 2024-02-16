@@ -12,6 +12,10 @@ cli
   )
   .action(correctAddressesInCsvAction);
 
+// Making this a separate function makes it easier to test.
+/**
+ * CLI entry point.
+ */
 export async function run() {
   try {
     cli.parse(process.argv, { run: false });

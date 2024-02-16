@@ -8,7 +8,7 @@ cli.help();
 cli
   .command(
     "<file>",
-    "Correct addresses in a CSV file. CSV file must contain columns 'City', 'Street', and 'Zip Code' data with headers.",
+    "Correct addresses in a CSV file. CSV file must contain columns 'City', 'Street', and 'Zip Code'.",
   )
   .action(correctAddressesInCsvAction);
 

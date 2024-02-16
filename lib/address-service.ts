@@ -1,7 +1,12 @@
 export interface Address {
-  street: string;
   city: string;
+  street: string;
   zip: string;
+}
+
+export interface AddressCorrectionResult {
+  corrected: Address;
+  original: Address;
 }
 
 export interface AddressDataReader {
@@ -9,7 +14,9 @@ export interface AddressDataReader {
 }
 
 export interface AddressDataWriter {
-  write(data: Address[]): void | Promise<void>;
+  write(
+    data: { original: Address; corrected: Address }[],
+  ): void | Promise<void>;
 }
 
 export function newAddressService({
@@ -22,7 +29,9 @@ export function newAddressService({
   return {
     async correctAddresses() {
       const data = await reader.read();
-      writer.write(data);
+      writer.write(
+        data.map((address) => ({ corrected: address, original: address })),
+      );
     },
   };
 }

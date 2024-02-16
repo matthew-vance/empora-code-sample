@@ -23,9 +23,16 @@ describe("address-service", () => {
     await addressService.correctAddresses();
     expect(writer.write).toHaveBeenCalledWith([
       {
-        city: "city",
-        street: "street",
-        zip: "zip",
+        corrected: {
+          city: "city",
+          street: "street",
+          zip: "zip",
+        },
+        original: {
+          city: "city",
+          street: "street",
+          zip: "zip",
+        },
       },
     ]);
   });

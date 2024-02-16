@@ -13,13 +13,23 @@ const reader = {
     ]),
 };
 
+const api = {
+  getCorrectedAddress: vi.fn(() =>
+    Promise.resolve({
+      city: "city",
+      street: "street",
+      zip: "zip",
+    }),
+  ),
+};
+
 const writer = {
   write: vi.fn(),
 };
 
 describe("address-service", () => {
   it("should correct addresses", async () => {
-    const addressService = newAddressService({ reader, writer });
+    const addressService = newAddressService({ api, reader, writer });
     await addressService.correctAddresses();
     expect(writer.write).toHaveBeenCalledWith([
       {

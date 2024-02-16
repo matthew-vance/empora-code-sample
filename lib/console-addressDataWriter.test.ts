@@ -9,11 +9,16 @@ describe("console-addressDataWriter", () => {
         corrected: { city: "city", street: "street", zip: "zip" },
         original: { city: "city", street: "street", zip: "zip" },
       },
+      {
+        corrected: null,
+        original: { city: "city", street: "street", zip: "zip" },
+      },
     ];
     const logSpy = vi.spyOn(console, "log");
     consoleAddressDataWriter.write(data);
     expect(logSpy).toHaveBeenCalledWith(
       "street, city, zip -> street, city, zip",
     );
+    expect(logSpy).toHaveBeenCalledWith("street, city, zip -> Invalid Address");
   });
 });

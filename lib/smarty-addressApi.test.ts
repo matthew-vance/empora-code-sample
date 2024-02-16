@@ -37,6 +37,7 @@ describe("smarty-addressApi", () => {
 
     const correctedAddress =
       await smartyAddressApi.getCorrectedAddress(address);
+
     expect(correctedAddress).toEqual(address);
   });
 
@@ -73,6 +74,7 @@ describe("smarty-addressApi", () => {
 
     const correctedAddress =
       await smartyAddressApi.getCorrectedAddress(address);
+
     expect(correctedAddress).toBeNull();
   });
 

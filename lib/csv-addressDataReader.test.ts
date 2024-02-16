@@ -17,6 +17,7 @@ describe("csv-addressDataReader", () => {
 
   it("should read file", async () => {
     const fileDataReader = newCsvAddressDataReader("./test/fixtures/test.csv");
+
     expect(await fileDataReader.read()).toStrictEqual([
       {
         city: "Columbus",
@@ -35,6 +36,7 @@ describe("csv-addressDataReader", () => {
     const fileDataReader = newCsvAddressDataReader(
       "./test/fixtures/no-header.csv",
     );
+
     await expect(fileDataReader.read()).rejects.toThrowError(
       "No header row found",
     );
@@ -44,6 +46,7 @@ describe("csv-addressDataReader", () => {
     const fileDataReader = newCsvAddressDataReader(
       "./test/fixtures/missing-data.csv",
     );
+
     expect(await fileDataReader.read()).toStrictEqual([
       {
         city: "Columbus",

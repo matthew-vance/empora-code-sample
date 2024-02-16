@@ -15,7 +15,9 @@ describe("console-addressDataWriter", () => {
       },
     ];
     const logSpy = vi.spyOn(console, "log");
+
     consoleAddressDataWriter.write(data);
+
     expect(logSpy).toHaveBeenCalledWith(
       "street, city, zip -> street, city, zip",
     );

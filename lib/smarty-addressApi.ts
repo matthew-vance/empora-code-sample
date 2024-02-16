@@ -16,20 +16,37 @@ function createUrl(path: string, params: Record<string, string>) {
   return `${baseUrl}/${path}?${paramsWithAuth}`;
 }
 
-const smartyAddressResponseSchema = z
-  .object({
-    components: z.object({
-      city_name: z.string(),
-      plus4_code: z.string(),
-      primary_number: z.string(),
-      street_name: z.string(),
-      street_predirection: z.string(),
-      street_suffix: z.string(),
-      zipcode: z.string(),
-    }),
-  })
-  .array()
-  .nonempty();
+const smartyAddressSchema = z.object({
+  city_name: z.string(),
+  plus4_code: z.string(),
+  primary_number: z.string(),
+  street_name: z.string(),
+  street_predirection: z.string(),
+  street_suffix: z.string(),
+  zipcode: z.string(),
+});
+const smartyAddressResponseSchema = z.object({
+  components: smartyAddressSchema,
+});
+
+type SmartyAddress = z.infer<typeof smartyAddressSchema>;
+
+function formatStreetName(address: SmartyAddress) {
+  const { primary_number, street_predirection, street_name, street_suffix } =
+    address;
+  return [primary_number, street_predirection, street_name, street_suffix].join(
+    " ",
+  );
+}
+
+function addressWasInvalid(error: z.ZodError) {
+  return error.issues.some((issue) => issue.code === ZodIssueCode.too_small);
+}
+
+function formatZipCode(address: SmartyAddress) {
+  const { zipcode, plus4_code } = address;
+  return `${zipcode}-${plus4_code}`;
+}
 
 export const smartyAddressApi = {
   getCorrectedAddress: async (address: Address) => {
@@ -48,41 +65,24 @@ export const smartyAddressApi = {
 
     const json = await result.json();
 
-    const parseResult = smartyAddressResponseSchema.safeParse(json);
+    const parseResult = smartyAddressResponseSchema
+      .array()
+      .nonempty()
+      .safeParse(json);
     if (!parseResult.success) {
-      if (
-        parseResult.error.issues.some(
-          (issue) => issue.code === ZodIssueCode.too_small,
-        )
-      ) {
-        return null;
-      }
+      if (addressWasInvalid(parseResult.error)) return null;
+
       throw new Error("Error parsing data from Smarty API", {
         cause: parseResult.error.issues,
       });
     }
 
-    const {
-      components: {
-        city_name,
-        plus4_code,
-        primary_number,
-        street_name,
-        street_predirection,
-        street_suffix,
-        zipcode,
-      },
-    } = parseResult.data[0];
+    const { components: rawData } = parseResult.data[0];
 
     return {
-      city: city_name,
-      street: [
-        primary_number,
-        street_predirection,
-        street_name,
-        street_suffix,
-      ].join(" "),
-      zip: `${zipcode}-${plus4_code}`,
+      city: rawData.city_name,
+      street: formatStreetName(rawData),
+      zip: formatZipCode(rawData),
     };
   },
 };

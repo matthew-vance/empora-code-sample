@@ -94,3 +94,6 @@ The rest of the code lives in the `/lib` directory. This directory contains any 
 - **Put together a more robust dependency container solution** - The dependecy graph is managed by hand now but would quickly become unmanageable as the project grows.
 - **Add custom error handling** - Currently the CLI only uses the built in error class for error handling. This works well for small projects but would not be ideal for larger ones.
 - **Add a debug mode** - This would allow developers to see more detailed logs and make debugging easier.
+- **Support bulk address correction** - The Smarty API supports sending up to 100 addresses at a time for correction. This would be a superior but more complex implemenation that I felt was beyond the scope of this exercise.
+- **Support streaming the CSV** - This would allow the CLI to handle larger datasets without running out of memory. The current implementation reads the entire CSV into memory before processing it.
+- **Support reading and writing from/to different sources** - The current implementation only supports reading from CSV files and writing to the console.

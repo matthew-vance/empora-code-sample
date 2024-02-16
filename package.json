@@ -1,0 +1,30 @@
+{
+  "name": "empora-code-sample",
+  "author": "Matthew Vance",
+  "type": "module",
+  "scripts": {
+    "build": "npm run clean && ./scripts/build.js",
+    "clean": "rimraf ./dist",
+    "dev": "npm run build -- --watch",
+    "test": "vitest",
+    "vet": "eslint --cache . && prettier --cache --check . --check && tsc"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@tsconfig/strictest": "^2.0.3",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "@vitest/coverage-v8": "^1.2.2",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^7.0.1",
+    "vitest": "^1.2.2"
+  }
+}

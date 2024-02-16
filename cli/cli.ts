@@ -5,7 +5,12 @@ import { correctAddressesInCsvAction } from "./actions";
 const cli = cac();
 cli.help();
 
-cli.command("<file>", "").action(correctAddressesInCsvAction);
+cli
+  .command(
+    "<file>",
+    "Correct addresses in a CSV file. CSV file must contain columns 'City', 'Street', and 'Zip Code' data with headers.",
+  )
+  .action(correctAddressesInCsvAction);
 
 export async function run() {
   try {

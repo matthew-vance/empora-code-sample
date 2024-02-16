@@ -16,6 +16,29 @@ function validateFile(file: string) {
   }
 }
 
+function parseHeaders(firstLine: string) {
+  return firstLine.split(",").map((header) => squash(header.toLowerCase()));
+}
+
+function mapDataToAddresses(data: string[], headers: string[]) {
+  return data.map((row) => {
+    const values = row.split(",");
+    return Object.fromEntries(
+      headers.map((header, i) => [header, values[i]?.trim()]),
+    );
+  });
+}
+
+function transformRawAddressToAddress(
+  rawAddress: Record<string, string | undefined>,
+) {
+  return {
+    city: rawAddress["city"] ?? "",
+    street: rawAddress["street"] ?? "",
+    zip: rawAddress["zipcode"] ?? "",
+  };
+}
+
 /**
  * Constructs a new CSV address data reader
  * @param file Path to CSV file containing addresses
@@ -33,22 +56,11 @@ export function newCsvAddressDataReader(file: string) {
         throw new Error("No header row found");
       }
 
-      const headers = firstLine
-        .split(",")
-        .map((header) => squash(header.toLowerCase()));
+      const headers = parseHeaders(firstLine);
       const data = lines.slice(1);
-      const addresses = data.map((row) => {
-        const values = row.split(",");
-        return Object.fromEntries(
-          headers.map((header, i) => [header, values[i]?.trim()]),
-        );
-      });
+      const rawAddresses = mapDataToAddresses(data, headers);
 
-      return addresses.map((address) => ({
-        city: address["city"] ?? "",
-        street: address["street"] ?? "",
-        zip: address["zipcode"] ?? "",
-      }));
+      return rawAddresses.map(transformRawAddressToAddress);
     },
   };
 }

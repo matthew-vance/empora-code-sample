@@ -51,7 +51,7 @@ npm run dev
 # Run tests with coverage (watch mode in non CI enironments)
 npm test
 
-#Lint and check types
+# Lint and check types
 npm run vet
 ```
 

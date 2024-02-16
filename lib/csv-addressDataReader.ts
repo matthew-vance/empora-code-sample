@@ -1,7 +1,17 @@
 import { accessSync } from "node:fs";
 import fs from "node:fs/promises";
 
+import { z } from "zod";
+
 import { squash } from "./string";
+
+const csvAddressRecordSchema = z.object({
+  city: z.string(),
+  street: z.string(),
+  zipcode: z.string(),
+});
+
+type CsvAddressRecord = z.infer<typeof csvAddressRecordSchema>;
 
 function validateFile(file: string) {
   const isCsv = file.endsWith(".csv");
@@ -20,7 +30,7 @@ function parseHeaders(firstLine: string) {
   return firstLine.split(",").map((header) => squash(header.toLowerCase()));
 }
 
-function mapDataToAddresses(data: string[], headers: string[]) {
+function mapDataToCsvAddressRecords(data: string[], headers: string[]) {
   return data.map((row) => {
     const values = row.split(",");
     return Object.fromEntries(
@@ -29,14 +39,12 @@ function mapDataToAddresses(data: string[], headers: string[]) {
   });
 }
 
-function transformRawAddressToAddress(
-  rawAddress: Record<string, string | undefined>,
-) {
-  return {
-    city: rawAddress["city"] ?? "",
-    street: rawAddress["street"] ?? "",
-    zip: rawAddress["zipcode"] ?? "",
-  };
+function csvRecordsToCorrectedAddresses(records: CsvAddressRecord[]) {
+  return records.map((record) => ({
+    city: record.city,
+    street: record.street,
+    zip: record.zipcode,
+  }));
 }
 
 /**
@@ -62,9 +70,12 @@ export function newCsvAddressDataReader(file: string) {
 
       const headers = parseHeaders(firstLine);
       const data = lines.slice(1);
-      const rawAddresses = mapDataToAddresses(data, headers);
+      const csvAddressRecords = mapDataToCsvAddressRecords(data, headers);
 
-      return rawAddresses.map(transformRawAddressToAddress);
+      return csvAddressRecordSchema
+        .array()
+        .transform(csvRecordsToCorrectedAddresses)
+        .parse(csvAddressRecords);
     },
   };
 }

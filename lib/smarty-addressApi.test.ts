@@ -75,4 +75,22 @@ describe("smarty-addressApi", () => {
       await smartyAddressApi.getCorrectedAddress(address);
     expect(correctedAddress).toBeNull();
   });
+
+  it("should throw when response is invalid", async () => {
+    server.use(
+      http.get("https://us-street.api.smarty.com/street-address", () => {
+        return new HttpResponse(JSON.stringify({}), { status: 200 });
+      }),
+    );
+
+    const address = {
+      city: "city",
+      street: "street",
+      zip: "zip",
+    };
+
+    expect(smartyAddressApi.getCorrectedAddress(address)).rejects.toThrowError(
+      "Error parsing data from Smarty API",
+    );
+  });
 });

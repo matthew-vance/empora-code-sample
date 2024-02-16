@@ -2,6 +2,8 @@
 
 This code sample is a CLI tool that reads addresses from a CSV file and corrects them using a third-party API. Most of the information about the project can be found in this readme but there are also some comments throughout the code that explain the logic in more detail.
 
+[![CI](https://github.com/matthew-vance/empora-code-sample/actions/workflows/ci.yml/badge.svg)](https://github.com/matthew-vance/empora-code-sample/actions/workflows/ci.yml)
+
 ## Requirements
 
 ### Node.js

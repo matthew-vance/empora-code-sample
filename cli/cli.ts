@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import cac from "cac";
 
 import { correctAddressesInCsvAction } from "./actions";

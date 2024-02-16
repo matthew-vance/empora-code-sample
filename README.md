@@ -56,3 +56,22 @@ npm test
 #Lint and check types
 npm run vet
 ```
+
+## Project Overview
+
+Entry points live in the `/bin` directory. These are directly executable and contain no logic. The only entry point for this sample is `cli.js` which executes the cli.
+
+All CLI logic is in the `/cli` directory. Here we set up actions to be exectued based on the command line arguments. This is also where we resolve any dependencies that are required for the actions.
+
+The `/scripts` directory contains any scripts that are ran directly from the command line like build or deployment scripts.
+
+The `/test` directory contains utilities for testing, including any global setup and fixtures. The tests themselves live alongside the code they are testing.
+
+The rest of the code lives in the `/lib` directory. This directory contains any logic that could be reused for things beyond the CLI.
+
+## Future Improvements
+
+- **Make the CLI installable** - Right now the CLI requires the consumer to build and execute it from the project root.
+- **Put together a more robust dependency container solution** - The dependecy graph is managed by hand now but would quickly become unmanageable as the project grows.
+- **Add custom error handling** - Currently the CLI only uses the built in error class for error handling. This works well for small projects but would not be ideal for larger ones.
+- **Add a debug mode** - This would allow developers to see more detailed logs and make debugging easier.

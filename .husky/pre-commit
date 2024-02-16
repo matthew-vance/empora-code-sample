@@ -1,0 +1,2 @@
+npm run vet
+npm run test -- --run

@@ -6,6 +6,7 @@
     "build": "npm run clean && ./scripts/build.js",
     "clean": "rimraf ./dist",
     "dev": "npm run build -- --watch",
+    "prepare": "husky",
     "test": "vitest",
     "vet": "eslint --cache . && prettier --cache --check . --check && tsc"
   },
@@ -22,6 +23,7 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-simple-import-sort": "^12.0.0",
+    "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.0.1",

@@ -6,7 +6,7 @@
     "build": "npm run clean && ./scripts/build.js",
     "clean": "rimraf ./dist",
     "dev": "npm run build -- --watch",
-    "prepare": "husky",
+    "prepare": "husky && husky install",
     "test": "vitest",
     "vet": "eslint --cache . && prettier --cache --check . --check && tsc"
   },

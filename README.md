@@ -2,8 +2,6 @@
 
 This code sample is a CLI tool that reads addresses from a CSV file and corrects them using a third-party API. Most of the information about the project can be found in this readme but there are also some comments throughout the code that explain the logic in more detail.
 
-[![CI](https://github.com/matthew-vance/empora-code-sample/actions/workflows/ci.yml/badge.svg)](https://github.com/matthew-vance/empora-code-sample/actions/workflows/ci.yml)
-
 ## Requirements
 
 ### Node.js
@@ -15,13 +13,6 @@ This project requires Node.js to be installed. My favorite tool for managing Nod
 The third-party API used in this project is the [Smarty](https://www.smarty.com/) API. You will need to sign up for an account and get an API key to use this tool.
 
 ## Setup
-
-### Clone the Repository
-
-```sh
-git clone https://github.com/matthew-vance/empora-code-sample.git
-cd empora-code-sample
-```
 
 ### Set Environment Variables
 

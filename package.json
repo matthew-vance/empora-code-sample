@@ -1,6 +1,5 @@
 {
   "name": "empora-code-sample",
-  "author": "Matthew Vance",
   "type": "module",
   "scripts": {
     "build": "npm run clean && ./scripts/build.js",

@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
-import validAddressResponse from "../test/fixtures/validAddressResponse.json";
+import validAddressResponse from "../../test/fixtures/validAddressResponse.json";
 import { smartyAddressApi } from "./smarty-addressApi";
 
 describe("smarty-addressApi", () => {

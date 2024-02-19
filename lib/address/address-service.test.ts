@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { newAddressService } from "./address-service";
+import { newAddressService } from "../address/address-service";
 
 const reader = {
   read: () =>

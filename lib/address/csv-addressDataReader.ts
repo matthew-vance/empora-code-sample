@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 
 import { z } from "zod";
 
-import { squash } from "./string";
+import { squash } from "../string";
 
 const csvAddressRecordSchema = z.object({
   city: z.string(),
